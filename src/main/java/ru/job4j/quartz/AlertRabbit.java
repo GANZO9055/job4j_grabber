@@ -24,6 +24,7 @@ public class AlertRabbit {
             throw new IllegalStateException(e);
         }
     }
+
     public static void main(String[] args) {
         try {
             init();
