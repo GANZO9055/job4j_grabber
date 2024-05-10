@@ -19,7 +19,7 @@ class HabrCareerDateTimeParserTest {
     }
 
     @Test
-    public void test_parse_validDateTimeStringWithDifferentTimeZones() {
+    public void parseValidDateTimeString() {
         String dateTimeString = "2023-11-04T18:27:26";
         HabrCareerDateTimeParser parser = new HabrCareerDateTimeParser();
 
