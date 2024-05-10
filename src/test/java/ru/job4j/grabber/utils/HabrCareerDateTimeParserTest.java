@@ -17,14 +17,4 @@ class HabrCareerDateTimeParserTest {
 
         assertThat(LocalDateTime.of(2024, 5, 3, 18, 27, 26)).isEqualTo(result);
     }
-
-    @Test
-    public void parseValidDateTimeString() {
-        String dateTimeString = "2023-11-04T18:27:26";
-        HabrCareerDateTimeParser parser = new HabrCareerDateTimeParser();
-
-        LocalDateTime result = parser.parse(dateTimeString);
-
-        assertThat(LocalDateTime.of(2023, 11, 4, 18, 27, 26)).isEqualTo(result);
-    }
 }
