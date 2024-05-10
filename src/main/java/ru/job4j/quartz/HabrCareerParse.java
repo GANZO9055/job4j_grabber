@@ -1,4 +1,4 @@
-package ru.job4j.grabber;
+package ru.job4j.quartz;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
