@@ -4,10 +4,8 @@ import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
 import java.io.InputStream;
-import java.net.ConnectException;
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Properties;
 
 import static org.quartz.JobBuilder.*;
@@ -20,7 +18,7 @@ public class AlertRabbit {
 
     private static void init() {
         try (InputStream input = AlertRabbit.class.getClassLoader()
-                .getResourceAsStream("rabbit.properties")) {
+                .getResourceAsStream("db/rabbit.properties")) {
             properties = new Properties();
             properties.load(input);
         } catch (Exception e) {
