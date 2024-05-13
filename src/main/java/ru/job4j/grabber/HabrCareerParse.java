@@ -25,11 +25,6 @@ public class HabrCareerParse implements Parse {
         this.dateTimeParser = dateTimeParser;
     }
 
-    public static void main(String[] args) throws IOException {
-        HabrCareerParse habrCareerParse = new HabrCareerParse(new HabrCareerDateTimeParser());
-        List<Post> posts = habrCareerParse.list("https://career.habr.com");
-    }
-
     private static String retrieveDescription(String link) throws IOException {
         Connection connection = Jsoup.connect(link);
         Document document = connection.get();
@@ -37,13 +32,18 @@ public class HabrCareerParse implements Parse {
     }
 
     @Override
-    public List<Post> list(String link) throws IOException {
+    public List<Post> list(String link) {
         int pageNumber = 1;
         List<Post> posts = new ArrayList<>();
         while (pageNumber++ != MAXIMUM_NUMBER_OF_PAGES) {
             String fullLink = "%s%s%d%s".formatted(link, PREFIX, pageNumber, SUFFIX);
             Connection connection = Jsoup.connect(fullLink);
-            Document document = connection.get();
+            Document document = null;
+            try {
+                document = connection.get();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             Elements rows = document.select(".vacancy-card__inner");
             rows.forEach(row -> {
                 Element titleElement = row.select(".vacancy-card__title").first();

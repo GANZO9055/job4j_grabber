@@ -2,7 +2,6 @@ package ru.job4j.grabber;
 
 import java.io.InputStream;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -13,7 +12,7 @@ public class PsqlStore implements Store {
 
     public PsqlStore(Properties config) {
         try (InputStream input = PsqlStore.class.getClassLoader()
-                .getResourceAsStream("db/rabbit.properties")) {
+                .getResourceAsStream("rabbit.properties")) {
             config.load(input);
             Class.forName(config.getProperty("driver-class-name"));
             connection = DriverManager.getConnection(
@@ -101,20 +100,6 @@ public class PsqlStore implements Store {
     public void close() throws Exception {
         if (connection != null) {
             connection.close();
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            PsqlStore psqlStore = new PsqlStore(new Properties());
-            psqlStore.save(new Post("test1", "test_21", "test3_3", LocalDateTime.now()));
-            psqlStore.save(new Post("test2", "test_22", "test3_3", LocalDateTime.now()));
-            psqlStore.save(new Post("test3", "test_23", "test3_3", LocalDateTime.now()));
-            psqlStore.save(new Post("test4", "test_24", "test3_3", LocalDateTime.now()));
-            System.out.println(psqlStore.getAll());
-            System.out.println(psqlStore.findById(2));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 }
