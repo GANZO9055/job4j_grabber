@@ -16,7 +16,7 @@ import java.util.List;
 public class HabrCareerParse implements Parse {
 
     private final DateTimeParser dateTimeParser;
-    private static final int MAXIMUM_NUMBER_OF_PAGES = 6;
+    private static final int MAXIMUM_NUMBER_OF_PAGES = 5;
     private static final String SOURCE_LINK = "https://career.habr.com";
     public static final String PREFIX = "/vacancies?page=";
     public static final String SUFFIX = "&q=Java%20developer&type=all";
@@ -31,11 +31,17 @@ public class HabrCareerParse implements Parse {
         return document.select(".vacancy-description__text").text();
     }
 
+    /**
+     * Происходит считывание первых пяти страниц (MAXIMUM_NUMBER_OF_PAGES),
+     * во время считывания данные записываются в объект Post и вносятся в список List
+     * @param link
+     * @return List<Post>
+     */
     @Override
     public List<Post> list(String link) {
         int pageNumber = 1;
         List<Post> posts = new ArrayList<>();
-        while (pageNumber++ != MAXIMUM_NUMBER_OF_PAGES) {
+        while (pageNumber++ <= MAXIMUM_NUMBER_OF_PAGES) {
             String fullLink = "%s%s%d%s".formatted(link, PREFIX, pageNumber, SUFFIX);
             Connection connection = Jsoup.connect(fullLink);
             Document document = null;

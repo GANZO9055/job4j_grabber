@@ -3,6 +3,12 @@ package ru.job4j.grabber;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Обьект Post,
+ * с данными (id, title, link, description, created),
+ * конструкторами,
+ * переопределенными equals, hashCode, toString
+ */
 public class Post {
     private int id;
     private String title;
